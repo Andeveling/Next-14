@@ -1,7 +1,15 @@
 import SideNav from "../ui/dashboard/sidenav"
+import { Metadata } from "next"
 
 type Props = {
   children: React.ReactNode
+}
+
+export const metadata: Metadata = {
+  title: {
+    default: "Invoices",
+    template: "%s | Invoices",
+  },
 }
 
 export default function DashboardLayout({ children }: Props) {

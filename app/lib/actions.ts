@@ -3,6 +3,20 @@ import { z } from "zod"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { signIn } from "@/auth"
+
+// Auth
+export async function authenticate(prevState: string | undefined, formData: FormData) {
+  try {
+    const credentials = Object.fromEntries(formData)
+    await signIn("credentials", credentials)
+  } catch (error) {
+    if ((error as Error).message.includes("CredentialsSignin")) {
+      return "CredentialSignin"
+    }
+    throw error
+  }
+}
 
 // This is temporary until @types/react-dom is updated
 export type State = {
